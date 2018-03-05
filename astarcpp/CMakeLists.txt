@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.5)
+set (CMAKE_CXX_STANDARD 11)
+project(Map)
+find_package(OpenCV REQUIRED)
+add_executable(map map.cpp)
+target_link_libraries(map ${OpenCV_LIBS})

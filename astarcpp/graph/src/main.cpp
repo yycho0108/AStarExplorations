@@ -9,8 +9,8 @@
 
 #include <unordered_map>
 
-#include "graph.hpp"
-#include "rrt.hpp"
+#include "bglpy/graph.hpp"
+#include "bglpy/rrt.hpp"
 
 static const float SquaredDistance(const cho::graph::Node2D& src,
                                    const cho::graph::Node2D& dst) {

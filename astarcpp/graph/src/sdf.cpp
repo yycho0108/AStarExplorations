@@ -1,6 +1,6 @@
 // Copyright [2020] Yoonyoung (Jamie) Cho
 
-#include "sdf.hpp"
+#include "bglpy/sdf.hpp"
 #include <algorithm>
 #include <cmath>
 

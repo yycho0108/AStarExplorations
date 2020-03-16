@@ -1,9 +1,17 @@
 #!/usr/bin/env python3
 
-import numpy as np
-import bglpy as g
-from matplotlib import pyplot as plt
 import sys
+
+try:
+    sys.path.append('build/swig')
+    import bglpy as g
+except ImportError as e:
+    print('bglpy import failed ; build the library first.')
+    print('{}'.format(e))
+    sys.exit(1)
+
+import numpy as np
+from matplotlib import pyplot as plt
 import time
 
 if False:

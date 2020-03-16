@@ -8,20 +8,35 @@ include(UseSWIG)
 find_package(Python3 COMPONENTS Development REQUIRED)
 
 # Set couple of package parameters.
-set(SWIG_SOURCE_FILE_EXTENSIONS ".i" ".swg")
 set(LIBRARY_NAME bglpy)
-list(APPEND SWIG_INCLUDE_DIRECTORIES "../include")
+
+# Configure SWIG .
+set(SWIG_SOURCE_FILE_EXTENSIONS ".i")
+set(SWIG_USE_TARGET_INCLUDE_DIRECTORIES ON)
+list(APPEND SWIG_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/../include/")
+message("INCLUDE ${SWIG_INCLUDE_DIRECTORIES}")
 
 # TODO(yycho0108): multiple sources support
-set_property(SOURCE bglpy.i PROPERTY CPLUSPLUS ON)
 set_property(SOURCE bglpy.i PROPERTY SWIG_MODULE_NAME bglpy)
+set_property(SOURCE bglpy.i PROPERTY CPLUSPLUS ON)
 
+# All those include stuff
+set_property(SOURCE bglpy.i PROPERTY INCLUDE_DIRECTORIES "${SWIG_INCLUDE_DIRECTORIES}")
 
-swig_add_module(bglpy python bglpy.i)
-swig_link_libraries(${LIBRARY_NAME} ${Python3_LIBRARIES} bglpy)
+swig_add_library(bglpy
+    TYPE SHARED
+    LANGUAGE python
+    SOURCES bglpy.i
+    )
+
+swig_link_libraries(${LIBRARY_NAME}
+    ${Python3_LIBRARIES}
+    bglpy)
+
+set_property(TARGET bglpy PROPERTY SWIG_USE_LIBRARY_INCLUDE_DIRECTORIES TRUE)
 
 target_include_directories(${SWIG_MODULE_${LIBRARY_NAME}_REAL_NAME}
-    PRIVATE ${Python3_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/..)
+    PRIVATE ${Python3_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 
 set_target_properties(${SWIG_MODULE_${LIBRARY_NAME}_REAL_NAME} PROPERTIES
     INSTALL_RPATH   "$ORIGIN")

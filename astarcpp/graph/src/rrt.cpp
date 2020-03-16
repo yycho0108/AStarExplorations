@@ -1,6 +1,6 @@
 // Copyright [2020] Yoonyoung (Jamie) Cho
 
-#include "rrt.hpp"
+#include "bglpy/rrt.hpp"
 
 #include <cmath>
 #include <deque>

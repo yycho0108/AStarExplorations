@@ -7,25 +7,11 @@
 #include <memory>
 #include <vector>
 
-#include "sdf.hpp"
-#include "types.hpp"
+#include "bglpy/sdf.hpp"
+#include "bglpy/types.hpp"
 
 namespace cho {
 namespace graph {
-
-/**
- * Maximal bounding rectangular workspace.
- * If this is meant to be general, could
- */
-struct Workspace {
-  Node2D min_node;
-  Node2D max_node;
-  Workspace() {}
-  Workspace(const Node2D& min, const Node2D& max)
-      : min_node(min), max_node(max) {}
-  Workspace(const Workspace& ws)
-      : min_node(ws.min_node), max_node(ws.max_node) {}
-};
 
 struct RrtSettings {
   Workspace workspace;

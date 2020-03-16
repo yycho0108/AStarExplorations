@@ -5,7 +5,7 @@
 #include <functional>
 #include <vector>
 
-#include "types.hpp"
+#include "bglpy/types.hpp"
 
 namespace cho {
 namespace graph {

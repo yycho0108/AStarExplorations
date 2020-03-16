@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 
-import bglpy as g
-import numpy as np
 import sys
+try:
+    sys.path.append('build/swig')
+    import bglpy as g
+except ImportError as e:
+    print('bglpy import failed ; build the library first.')
+    print('{}'.format(e))
+    sys.exit(1)
+import numpy as np
 import time
 
 from line_profiler import LineProfiler

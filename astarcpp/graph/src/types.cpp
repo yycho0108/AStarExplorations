@@ -1,6 +1,6 @@
 // Copyright [2020] Yoonyoung (Jamie) Cho
 
-#include "types.hpp"
+#include "bglpy/types.hpp"
 
 namespace cho {
 namespace graph {

@@ -1,5 +1,6 @@
 from collections import deque
 import numpy as np
+import cv2
 
 # pt = [x, y, g, f]
 class AStarQueue(object):
@@ -41,6 +42,16 @@ class LDist(object):
             res += abs(e0-e1)
         return res
 
+class GDist(EDist):
+    def __init__(self, x1, o, scale=1):
+        ker = cv2.getStructuringElement(cv2.MORPH_DILATE, (3,3))
+        self._o = cv2.dilate(np.float32(o), ker, iterations=2)
+        self._s = scale
+        super(GDist, self).__init__(x1)
+    def __call__(self, x0):
+        return super(GDist, self).__call__(x0) + self._s*self._o[x0]
+        #return EDist.__call__(x0) + self._o[x0]
+
 class AStar2DGrid(object):
     def __init__(self, grid, init, goal, h=None):
         self._grid = grid
@@ -68,6 +79,9 @@ class AStar2DGrid(object):
                 i < self._n and j < self._m and
                 self._grid[i][j] == 0 and
                 self._check[i][j] == 0)
+
+    def simplify(self, path):
+        pass
 
     def __call__(self):
         while True:
@@ -101,7 +115,8 @@ def main():
             [0, 0, 0, 1, 0, 1],
             [1, 0, 1, 1, 0, 0],
             [0, 0, 0, 0, 1, 0]]
-    h = LDist((4,5))
+    #h = LDist((4,5))
+    h = GDist((4,5), o=grid)
     astar = AStar2DGrid(grid, (0,0), (4,5), h)
 
     print astar()
